@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 
 from src.applications.router import router_app
-from src.auth.base_config import fastapi_users, auth_backend
+from src.auth.base_config import fastapi_users, auth_backend, current_user
+from src.users.models import User
 from src.users.schemas import UserRead, UserCreate, UserUpdate
 
 app = FastAPI(
@@ -30,5 +31,5 @@ app.include_router(
 
 
 @app.get("/check")
-async def root():
-    return {"message": "Hello World"}
+async def protected_route(user: User = Depends(current_user)):
+    return f"Hello, {user.email}"

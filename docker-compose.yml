@@ -10,7 +10,7 @@ services:
     expose:
       - 7777
     ports:
-      - 7777:5432
+      - 5432:7777
     volumes:
       - postgres:/postgresql/data
     env_file:
@@ -35,7 +35,7 @@ services:
 #      - chmod a+x ./scripts/*.sh && ./scripts/start-dev.sh
       - ./start-dev.sh
     ports:
-      - 9999:8000
+      - 8000:8000
     volumes:
       - .:/app
     env_file:

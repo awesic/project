@@ -36,8 +36,9 @@ async def creat_application(
         session: AsyncSession = Depends(get_async_session),
         cur_user: User = Depends(current_user)
 ):
-    app.dict().update({'customer_id': cur_user.id})
-    stmt = insert(Application).values(**app.dict())
+    new_app = app.dict()
+    new_app.update({'customer_id': cur_user.id})
+    stmt = insert(Application).values(**new_app)
     await session.execute(stmt)
     await session.commit()
-    return 'The application was sent successfully'
+    return f'The application was sent successfully'

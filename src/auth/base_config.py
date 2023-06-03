@@ -8,7 +8,7 @@ from src.auth.manager import get_user_manager
 from src.config import settings
 from src.users.models import User
 
-cookie_transport = CookieTransport(cookie_max_age=3600)
+cookie_transport = CookieTransport(cookie_name="bonds", cookie_max_age=3600)
 
 PUBLIC_KEY = '-----BEGIN PUBLIC KEY-----\n' + settings.JWT_PUBLIC_KEY + '\n-----END PUBLIC KEY-----'
 PRIVATE_KEY = '-----BEGIN PRIVATE KEY-----\n' + settings.JWT_PRIVATE_KEY + '\n-----END PRIVATE KEY-----'
@@ -38,4 +38,4 @@ current_user = fastapi_users.current_user(active=True)
 
 
 async def get_current_user(current: User = Depends(current_user)):
-    return current.id
+    return current
